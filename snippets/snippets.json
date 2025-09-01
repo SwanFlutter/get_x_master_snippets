@@ -1,0 +1,1410 @@
+{
+    "GetXMasterFirebaseLoginSocialGoogle Snippet": {
+        "prefix": "getxmasterfirebaseLoginSocialGoogle",
+        "body": [
+            "//google_sign_in: ^4.5.1 ",
+            "Future<UserCredential> signInWithGoogle() async {",
+            "\t// Trigger the authentication flow",
+            "\tfinal GoogleSignInAccount googleUser = await GoogleSignIn().signIn();",
+            "",
+            "\t// Obtain the auth details from the request",
+            "\tfinal GoogleSignInAuthentication googleAuth = await googleUser.authentication;",
+            "",
+            "\t// Create a new credential",
+            "\tfinal GoogleAuthCredential credential = GoogleAuthProvider.credential(",
+                "\t\taccessToken: googleAuth.accessToken,",
+                "\t\tidToken: googleAuth.idToken,",
+            "\t);",
+            "\t// Once signed in, return the UserCredential",
+            "\treturn await FirebaseAuth.instance.signInWithCredential(credential);",
+            "}"
+        ],
+        "description": "Once installed, trigger the sign-in flow and create a new credential:"
+    },
+    "GetXMasterFirebaseLoginSocialFacebook Snippet": {
+        "prefix": "getxmasterfirebaseLoginSocialFacebook",
+        "body": [
+            "//flutter_facebook_auth: ^1.0.0",
+            "",
+            "Future<UserCredential> signInWithFacebook() async {",
+            "\t// Trigger the sign-in flow",
+            "\tfinal LoginResult result = await FacebookAuth.instance.login();",
+            "",
+            "\t// Create a credential from the access token",
+            "\tfinal FacebookAuthCredential facebookAuthCredential = FacebookAuthProvider.credential(result.accessToken.token);",
+            "",
+            "\t// Once signed in, return the UserCredential",
+            "\treturn await FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);",
+            "}"
+        ],
+        "description": "Before getting started setup your Facebook Developer App and follow the setup process to enable Facebook Login.Ensure the Facebook sign-in provider is enabled on the Firebase Console. with the Facebook App ID and Secret set."
+    },
+    "GetXMasterFirebaseLoginSocialApple Snippet": {
+        "prefix": "getxmasterfirebaseLoginSocialApple",
+        "body": [
+            "//sign_in_with_apple: ^2.5.2",
+            "//crypto: ^2.1.5",
+            "/// Generates a cryptographically secure random nonce, to be included in a",
+            "/// credential request.",
+            "String generateNonce([int length = 32]) {",
+            "\tfinal charset = '0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._';",
+            "\tfinal random = Random.secure();",
+            "\treturn List.generate(length, (_) => charset[random.nextInt(charset.length)])",
+            ".join();",
+            "}",
+            "/// Returns the sha256 hash of [input] in hex notation.",
+            "String sha256ofString(String input) {",
+            "\tfinal bytes = utf8.encode(input);",
+            "\tfinal digest = sha256.convert(bytes);",
+            "\treturn digest.toString();",
+            "}",
+            "",
+            "Future<UserCredential> signInWithApple() async {",
+            "\t// To prevent replay attacks with the credential returned from Apple, we",
+            "\t// include a nonce in the credential request. When signing in in with",
+            "\t// Firebase, the nonce in the id token returned by Apple, is expected to",
+            "\t// match the sha256 hash of `rawNonce`.",
+            "\tfinal rawNonce = generateNonce();",
+            "\tfinal nonce = sha256ofString(rawNonce);",
+            "",
+            "\t// Request credential for the currently signed in Apple account.",
+            "\tfinal appleCredential = await SignInWithApple.getAppleIDCredential(",
+            "\tscopes: [",
+            "\t\tAppleIDAuthorizationScopes.email,",
+            "\t\tAppleIDAuthorizationScopes.fullName,",
+            "\t],",
+            "\tnonce: nonce,",
+            "\t);",
+            "",
+            "\t// Create an `OAuthCredential` from the credential returned by Apple.",
+            "\tfinal oauthCredential = OAuthProvider('apple.com').credential(",
+            "\t\tidToken: appleCredential.identityToken,",
+            "\t\trawNonce: rawNonce,",
+            "\t);",
+            "",
+            "\t// Sign in the user with Firebase. If the nonce we generated earlier does",
+            "\t// not match the nonce in `appleCredential.identityToken`, sign in will fail.",
+            "\treturn await FirebaseAuth.instance.signInWithCredential(oauthCredential);",
+            "}"
+        ],
+        "description": "Before you begin configure Sign In with Apple and enable Apple as a sign-in provider. Next, make sure that your Runner apps have the 'Sign in with Apple' capability.Install the sign_in_with_apple plugin, as well as the crypto package:"
+    },
+    "GetXMasterFirebaseLoginSocialTwitter Snippet": {
+        "prefix": "getxmasterfirebaseLoginSocialTwitter",
+        "body": [
+            "//flutter_twitter_login: ^1.1.0",
+            "Future<UserCredential> signInWithTwitter() async {",
+            "\t// Create a TwitterLogin instance",
+            "\tfinal TwitterLogin twitterLogin = new TwitterLogin(",
+            "\t\tconsumerKey: '<your consumer key>',",
+            "\t\tconsumerSecret:' <your consumer secret>',",
+            "\t);",
+            "",
+            "\t// Trigger the sign-in flow",
+            "\tfinal TwitterLoginResult loginResult = await twitterLogin.authorize();",
+            "",
+            "\t// Get the Logged In session",
+            "\tfinal TwitterSession twitterSession = loginResult.session;",
+            "",
+            "\t// Create a credential from the access token",
+            "\tfinal AuthCredential twitterAuthCredential = TwitterAuthProvider.credential(accessToken: twitterSession.token, secret: twitterSession.secret);",
+            "",
+            "\t// Once signed in, return the UserCredential",
+            "\treturn await FirebaseAuth.instance.signInWithCredential(twitterAuthCredential);",
+            "}"
+        ],
+        "description": "Ensure the 'Twitter' sign-in provider is enabled on the Firebase Console with an API Key and API Secret set."
+    },
+    "GetXMasterFirebaseLoginSocialGithub Snippet": {
+        "prefix": "getxmasterfirebaseLoginSocialGithub",
+        "body": [
+            "//  github_sign_in: ^0.0.1",
+            "Future<UserCredential> signInWithGitHub() async {",
+            "\t// Create a GitHubSignIn instance",
+            "\tfinal GitHubSignIn gitHubSignIn = GitHubSignIn(",
+            "\t\tclientId: clientId,",
+            "\t\tclientSecret: clientSecret,",
+            "\t\tredirectUrl: 'https://my-project.firebaseapp.com/__/auth/handler');",
+            "",
+            "\t// Trigger the sign-in flow",
+            "\tfinal result = await gitHubSignIn.signIn(context);",
+            "",
+            "\t// Create a credential from the access token",
+            "\tfinal AuthCredential githubAuthCredential = GithubAuthProvider.credential(result.token);",
+            "",
+            "\t// Once signed in, return the UserCredential",
+            "\treturn await FirebaseAuth.instance.signInWithCredential(githubAuthCredential);",
+            "}"
+        ],
+        "description": "Ensure that you have setup an OAuth App from your GitHub Developer Settings and that the 'GitHub' sign-in provider is enabled on the Firebase Console with the Client ID and Secret are set, with the callback URL set in the GitHub app."
+    },
+    "GetXMasterFirebaseRegistrationEmailAndPassword Snippet": {
+        "prefix": "getxmasterfirebaseRegistrationEmailAndPassword",
+        "body": [
+            "try {",
+            "\tUserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(",
+            "\t\temail: 'barry.allen@example.com',",
+            "\t\tpassword: 'SuperSecretPassword!'",
+            "\t);",
+            "} on FirebaseAuthException catch (e) {",
+            "\tif (e.code == 'weak-password') {",
+            "\tprint('The password provided is too weak.');",
+            "\t} else if (e.code == 'email-already-in-use') {",
+            "\tprint('The account already exists for that email.');",
+            "\t}",
+            "} catch (e) {",
+            "\tprint(e);",
+            "}"
+        ],
+        "description": "To create a new account on your Firebase project call the createUserWithEmailAndPassword() method with the user's email address and password:"
+    },
+    "GetXMasterFirebaseLoginEmailAndPassword Snippet": {
+        "prefix": "getxmasterfirebaseLoginEmailAndPassword",
+        "body": [
+            "try {",
+            "\tUserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(",
+            "\t\temail: 'barry.allen@example.com',",
+            "\t\tpassword: 'SuperSecretPassword!'",
+            "\t);",
+            "} on FirebaseAuthException catch (e) {",
+            "\tif (e.code == 'user-not-found') {",
+            "\tprint('No user found for that email.');",
+            "\t} else if (e.code == 'wrong-password') {",
+            "\tprint('Wrong password provided for that user.');",
+            "\t}",
+            "}"
+        ],
+        "description": "To sign-in to an existing account, call the signInWithEmailAndPassword() method:"
+    },
+    "GetXMasterFirebaseVerifyExistsEmail Snippet": {
+        "prefix": "getxmasterfirebaseVerifyExistsEmail",
+        "body": [
+            "User user = FirebaseAuth.instance.currentUser;",
+            "if (!user.emailVerified) {",
+            "\tawait user.sendEmailVerification();",
+            "}"
+        ],
+        "description": "The User class provides a sendEmailVerification() method and emailVerified property which you can use to handle this scenario."
+    },
+    "GetXMasterFirebaseDeleteUser Snippet": {
+        "prefix": "getxmasterfirebaseDeleteUser",
+        "body": [
+            "try {",
+            "\tawait FirebaseAuth.instance.currentUser.delete();",
+            "} catch on FirebaseAuthException (e) {",
+            "\tif (e.code == 'requires-recent-login') {",
+            "\tprint('The user must reauthenticate before this operation can be executed.');",
+            "\t}",
+            "}"
+        ],
+        "description": "If your user wishes to delete their account from your project, this can be archived with the delete() method. Since this is a security-sensitive operation, it requires that user must have recently signed-in"
+    },
+    "GetXMasterFirebaseCurrentUser Snippet": {
+        "prefix": "getxmasterfirebaseCurrentUser",
+        "body": [
+            "FirebaseAuth auth = FirebaseAuth.instance;",
+            "if (auth.currentUser != null) {",
+            "\tprint(auth.currentUser.uid);",
+            "}"
+        ],
+        "description": "To sign a user out, call the signOut() method, if you are listening to changes in authentication state, a new event will be sent to your listeners."
+    },
+    "GetXMasterFirebaseReauthenticateUser Snippet": {
+        "prefix": "getxmasterfirebaseReauthenticateUser",
+        "body": [
+            "String email = 'barry.allen@example.com';",
+            "String password = 'SuperSecretPassword!';",
+            "//Create a credential",
+            "EmailAuthCredential credential = EmailAuthProvider.credential(email: email, password: password);",
+            "//Reauthenticate",
+            "await FirebaseAuth.instance.currentUser.reauthenticateWithCredential(credential);"
+        ],
+        "description": " Rather than signing the user out and back in again, the reauthenticateWithCredential() method can be called. If a recent login is required, create a new AuthCredential and pass it to the method. For example, to reauthenticate with email & password, create a new EmailAuthCredential:"
+    },
+    "GetXMasterFirebaseInstance Snippet": {
+        "prefix": "getxmasterfirebaseInstance",
+        "body": [
+            "FirebaseAuth auth = FirebaseAuth.instance;"
+        ],
+        "description": "To create a new Firebase Auth instance, call the instance getter on FirebaseAuth:"
+    },
+    "GetXMasterFirebaseSignOut Snippet": {
+        "prefix": "getxmasterfirebaseSignOut",
+        "body": [
+            "await FirebaseAuth.instance.signOut();"
+        ],
+        "description": "To sign a user out, call the signOut() method, if you are listening to changes in authentication state, a new event will be sent to your listeners."
+    },
+    "GetXMasterFirebaseAnonymousLogin Snippet": {
+        "prefix": "getxmasterfirebaseLoginAnonymous",
+        "body": [
+            "UserCredential userCredential = await FirebaseAuth.instance.signInAnonymously();"
+        ],
+        "description": "To get started, call the signInAnonymously() method on the FirebaseAuth instance"
+    },
+    "GetXMasterFirebaseAuthState Snippet": {
+        "prefix": "getxmasterfirebaseAuthState",
+        "body": [
+            "FirebaseAuth.instance",
+            ".authStateChanges()",
+            ".listen((User user) { ",
+            "if ( user == null ) {",
+            "\tprint ( 'User is currently signed out!' ) ;",
+            "} else {",
+            "\tprint ( ''User is signed in!' ) ;",
+            "\t}",
+            "});"
+        ],
+        "description": "To subscribe to these changes, call the authStateChanges() method on your FirebaseAuth instance"
+    },
+    "GetXMasterFirebaseSendEmailVerification Snippet": {
+        "prefix": "getxmasterfirebaseSendEmailVerification",
+        "body": [
+            "User user = FirebaseAuth.instance.currentUser;",
+            "if (!user.emailVerified) {",
+            "\tvar actionCodeSettings = ActionCodeSettings(",
+            "\turl: 'https://www.example.com/?email=${user.email}',",
+            "\tdynamicLinkDomain: 'example.page.link',",
+            "\tandroid: {",
+            "\t'packageName': 'com.example.android',",
+            "\t'installApp': true,",
+            "\t'minimumVersion': '12'",
+            "},",
+            "\tiOS: {'bundleId': 'com.example.ios'},",
+            "\thandleCodeInApp: true);",
+            "\tawait user.sendEmailVerification(actionCodeSettings);",
+            "}"
+        ],
+        "description": "You can pass state via a continue URL when sending email actions for verifying a user's email.This provides the user the ability to go back to the app after the action is completed. In addition, you can specify whether to handle the email action link directly from a mobile application when it is installed instead of a web page."
+    },
+    "GetXMasterFirebaseEmailVerification Snippet": {
+        "prefix": "getxmasterfirebaseEmailVerification",
+        "body": [
+            "FirebaseAuth auth = FirebaseAuth.instance;",
+            "//Get actionCode from the dynamicLink",
+            "final Uri deepLink = dynamicLink?.link;",
+            "var actionCode = deepLink.queryParameters['oobCode'];",
+            "",
+            "try {",
+            "\tawait auth.checkActionCode(actionCode);",
+            "\tawait auth.applyActionCode(actionCode);",
+            "",
+            "\t// If successful, reload the user:",
+            "\tauth.currentUser.reload();",
+            "} on FirebaseAuthException catch (e) {",
+            "\tif (e.code == 'invalid-action-code') {",
+            "\tprint('The code is invalid.');",
+            "\t}",
+            "}"
+        ],
+        "description": "The code then can be received in app by parsing the Firebase Dynamic Link. Refer - Handling email actions in a mobile application to know how to handle the link in app. You can use firebase_dynamic_links flutter package to get the oobCode from the link and apply actionCode as follow."
+    },
+    "GetXMasterController Snippet": {
+        "prefix": "getxmastercontroller",
+        "body": [
+            "import 'package:get_x_master/get_x_master.dart';",
+            "",
+            "class ${1:My}Controller extends GetXController {",
+            "",
+            "final ${2:My}Repository repository;",
+            "$1Controller(this.repository);",
+            "",
+            "\tfinal _${3:obj} = ''.obs;",
+            "\tset $3(value) => this._$3.value = value;",
+            "\tget $3 => this._$3.value;",
+            "}"
+        ],
+        "description": "Generate GetController."
+    },
+    "GetXMasterVoidController Snippet": {
+        "prefix": "getxmastercontrollervoid",
+        "body": [
+            "import 'package:get_x_master/get_x_master.dart';",
+            "",
+            "class ${1:My}Controller extends GetxController {",
+            "",
+            "}"
+        ],
+        "description": "Generate void GetController."
+    },
+    "GetXMasterTickerProviderController Snippet": {
+        "prefix": "getxmastercontrollerwithSingleGetTickerProviderMixin",
+        "body": [
+            "import 'package:get_x_master/get_x_master.dart';",
+            "",
+            "class ${1:My}Controller extends GetxController with SingleGetTickerProviderMixin {",
+            "",
+            "}"
+        ],
+        "description": "Generate void GetController with SingleGetTickerProviderMixin."
+    },
+    "GetXMaster RxTypes": {
+        "prefix": "getxmasterrx",
+        "body":[
+         "Rx<${1:Type}> ${2:obj} = Rx<${1:Type}>();"
+        ]
+    },
+    "GetXMaster RxBool": {
+        "prefix": "getxmasterbool",
+        "body":[
+         "Rx<bool> ${1:obj} = Rx<bool>();"
+        ]
+    },
+    "GetXMaster RxDouble": {
+        "prefix": "getxmasterdouble",
+        "body":[
+         "Rx<Double> ${1:obj} = Rx<double>();"
+        ]
+    },
+    "GetXMaster RxInt": {
+        "prefix": "getxmasterint",
+        "body":[
+         "Rx<Int> ${1:obj} = Rx<Int>();"
+        ]
+    },
+    "GetXMaster RListxTypes": {
+        "prefix": "getxmasterrxlist",
+        "body":[
+         "RxList<Rx<${1:Type}>> ${2:obj} = RxList<Rx<${1:Type}>>();"
+        ]
+    },
+    "GetXMasterController With State Mixin Snippet": {
+        "prefix": "getxmastercontrollerstatemixin",
+        "body": [
+            "import 'package:get_x_master/get_x_master.dart';",
+            "",
+            "class ${1:My}Controller extends GetxController with StateMixin<${2:Type}>{",
+            "final repository;",
+            "@override",
+            "void onInit() {",
+            "\tthis.repository.getData().then((resp) {",
+            "\t\tchange(resp, status: RxStatus.success());",
+            "\t}, onError: (err) {",
+            "\t\tprint(err);",
+            "\tchange(",
+            "\t\tnull,",
+            "\t\tstatus: RxStatus.error('Error get data'),",
+            "\t);",
+            "\tsuper.onInit();",
+            "\t});",
+            "}",
+            "",
+            "}"
+        ],
+        "description": "Generate GetController with statemixin and oninit."
+    },
+    "GetXMasterService Snippet": {
+        "prefix": "getxmasterservice",
+        "body": [
+            "import 'package:get_x_master/get_x_master.dart';",
+            "",
+            "class ${1:My}Service extends GetxService {",
+            "\tFuture<${1:My}Service> init() async {",
+                "\t\treturn this;",
+            "\t}",
+            "",
+            "}"
+        ],
+        "description": "Generate void GetController."
+    },
+    "GetXMasterBindings Snippet": {
+        "prefix": "getxmasterbinding",
+        "body": [
+            "import 'package:get_x_master/get_x_master.dart';",
+            "",
+            "class ${1:MyPage}Binding implements Bindings {",
+            "@override",
+            "void dependencies() {",
+            "\tGet.lazyPut<$1Controller>(() => $1Controller(",
+            "\t\t $1Repository(${3:MyApi}())));",
+            "\t}",
+            "}"
+        ],
+        "description": "Generate a Binding class."
+    },
+    "GetXMasterTheme Snippet": {
+        "prefix": "getxmastertheme",
+        "body": [
+            "import 'package:flutter/material.dart';",
+            "final ThemeData appThemeData = ThemeData(",
+            "\tprimaryColor: Colors.blueAccent,",
+            "\taccentColor: Colors.blue,",
+            "\tfontFamily: 'Georgia',",
+            "\ttextTheme: TextTheme(",
+            "\t\theadline1: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),",
+            "\t),",
+            ");"
+        ],
+        "description": "Generate var theme."
+    },
+    "GetXMasterRoutingPages Snippet": {
+        "prefix": "getxmasterpagesroutes",
+        "body": [
+            "import 'package:get_x_master/get_x_master.dart';",
+            "part './routes.dart';",
+            "",
+            "abstract class AppPages {",
+            "",
+            "\tstatic final pages = [",
+            "\t\tGetPage(name: Routes.HOME, page:()=> MyHomePage(),)",
+            "\t];",
+            "}"
+        ],
+        "description": "Generate file pages."
+    },
+    "GetXMasterRoutingPage Snippet": {
+        "prefix": "getxmasterpageroute",
+        "body": [
+            "GetPage(name: Routes.${1:CONST_ROUTE}, page:()=> ${2:My}Page(), binding:${2:My}Binding() ),"
+        ],
+        "description": "Generate routes pages."
+    },
+    "GetXMasterRoutesFile Snippet": {
+        "prefix": "getxmasterroutes",
+        "body": [
+            "part of './pages.dart';",
+            "abstract class Routes{",
+            "",
+            "\tstatic const INITIAL = '/';",
+            "\tstatic const HOME = '/home';",
+            "\tstatic const LOGIN = '/login';",
+            "\tstatic const CADASTRO = '/cadastro';",
+            "}"
+        ],
+        "description": "Generate file routes."
+    },
+    "GetXMasterValueBuilder Snippet": {
+        "prefix": "getxmastervaluebuilder",
+        "body": [
+            "ValueBuilder<bool>(",
+            "\tinitialValue: false,",
+            "\tbuilder: (value, updateFn) => Switch(",
+            "\t\tvalue: value,",
+            "\t\tonChanged: updateFn, // same signature! you could use ( newValue ) => updateFn( newValue )",
+            "\t),",
+            "// if you need to call something outside the builder method.",
+            "\tonUpdate: (value) => print('Value updated: $value'),",
+            "\tonDispose: () => print('Widget unmounted'),",
+            "),"
+        ],
+        "description": "Generate ValueBuilder."
+    },
+    "GetXMasterObxValue Snippet": {
+        "prefix": "getxmasterobxvalue",
+        "body": [
+        "ObxValue((data) => Switch(",
+        "\tvalue: data.value,",
+        "onChanged: data, // Rx has a _callable_ function! You could use (flag) => data.value = flag,",
+        "\t),",
+        "\tfalse.obs,",
+        "),"
+        ],
+        "description": "Generate ValueBuilder."
+    },
+    "GetXMasterRoute Snippet": {
+        "prefix": "getxmasterroute",
+        "body": [
+            "\tstatic const ${1:MYROUTE} = '/${2:caminho-rota}';"
+        ],
+        "description": "Generate file routes."
+    },
+    "GetXMasterArgs Snippet": {
+        "prefix": "getxmasterargs",
+        "body": [
+            "Get.arguments${1:['']};"
+        ],
+        "description": "Generate Get.arguments['']."
+    },
+    "GetXMasterPageView Snippet": {
+        "prefix": "getxmasterpage",
+        "body": [
+            "import 'package:flutter/material.dart';",
+            "import 'package:get_x_master/get_x_master.dart';",
+            "",
+            "class ${1:My}Page extends GetView<$1Controller> {",
+            "",
+            "\t@override",
+            "\tWidget build(BuildContext context) {",
+            "",
+            "\t\treturn Scaffold(",
+            "\t\tappBar: AppBar(title: Text('$1Page')),",
+            "",
+            "\t\tbody: SafeArea(",
+            "\t\t\tchild: Text('${1:My}Controller'))",
+            "\t\t);",
+            "\t}",
+            "}"
+        ],
+        "description": "Generate Page."
+    },
+    "GetXMasterPageView with State Mixin Snippet": {
+        "prefix": "getxmasterpagestatemixin",
+        "body": [
+            "import 'package:flutter/material.dart';",
+            "import 'package:get_x_master/get_x_master.dart';",
+            "",
+            "class ${1:My}Page extends GetView<$1Controller> {",
+            "",
+            "\t@override",
+            "\tWidget build(BuildContext context) {",
+            "",
+            "\t\treturn Scaffold(",
+            "\t\tappBar: AppBar(title: Text('$1Page')),",
+            "",
+            "\t\tbody: this.controller.obx(",
+            "\t\t\tSafeArea(",
+            "\t\t\tchild: Text(state.toString()))",
+            "\t\t);",
+            "}"
+        ],
+        "description": "Generate Page with state mixin."
+    },
+    "GetXMasterPageVoid Snippet": {
+        "prefix": "getxmasterpagevoid",
+        "body": [
+            "import 'package:flutter/material.dart';",
+            "import 'package:get_x_master/get_x_master.dart';",
+            "",
+            "class ${1:My}Page extends StatelessWidget {",
+            "",
+            "\t@override",
+            "\tWidget build(BuildContext context) {",
+            "",
+            "\t\treturn Scaffold(",
+            "\t\tappBar: AppBar(title: Text('$1Page')),",
+            "",
+            "\t\tbody: ${3:Container}(",
+            "\t\t\tchild: ",
+            "\t\t\t),",
+            "\t\t);",
+            "\t}",
+            "}"
+        ],
+        "description": "Generate Page void."
+    },
+    "GetXMasterX Snippet": {
+        "prefix": "getxmasterx",
+        "body": [
+            "GetX<${1:My}Controller>(",
+            "\tinit: ${1:My}Controller(),",
+            "\tbuilder: (_) => Text(_.var),",
+            "",
+            ")"
+        ],
+        "description": "Generate simple GetX Widget."
+    },
+    "GetXMasterRxModel Snippet": {
+        "prefix": "getxmasterrxmodel",
+        "body": [
+            "import 'package:get_x_master/get_x_master.dart';",
+            "class Rx${1:My}Model {",
+            "",
+            "\tfinal id = 0.obs;",
+            "\tfinal nome = 'nome'.obs;",
+            "}",
+            "class ${1:My}Model {",
+            "\t$1Model({ id, nome });",
+            "",
+            "final rx = Rx${1:My}Model();",
+            "",
+            "get nome => rx.nome.value;",
+            "set nome(value) => rx.nome.value = value;",
+            "",
+            "get id => rx.id.value;",
+            "set id(value) => rx.id.value = value;",
+            "",
+            "\t$1Model.fromJson(Map<String, dynamic> json){",
+            "\t\t\tthis.id = json['id'];",
+            "\t\t\tthis.nome = json['nome'];",
+            "\t}",
+            "",
+            "\tMap<String, dynamic> toJson(){",
+            "\t\tfinal Map<String, dynamic> data = new Map<String, dynamic>();",
+            "\t\tdata['nome'] = this.nome;",
+            "\t\treturn data;",
+            "\t}",
+            "}"
+        ],
+        "description": "Generate RxModel and Model."
+    },
+    "GetXMasterModel Snippet": {
+        "prefix": "getxmastermodel",
+        "body": [
+            "class ${1:My}Model {",
+            "",
+            "\tint id;",
+            "\tString name;",
+            "",
+            "\t$1Model({ this.id, this.name });",
+            "",
+            "\t$1Model.fromJson(Map<String, dynamic> json){",
+            "\t\t\tthis.id = json['id'];",
+            "\t\t\tthis.name = json['name'];",
+            "\t}",
+            "",
+            "\tMap<String, dynamic> toJson(){",
+            "\t\tfinal Map<String, dynamic> data = new Map<String, dynamic>();",
+            "\t\tdata['name'] = this.name;",
+            "\t\treturn data;",
+            "\t}",
+            "}"
+        ],
+        "description": "Generate file Model."
+    },
+    "GetXMasterProvider Snippet": {
+        "prefix": "getxmasterprovider",
+        "body": [
+            "import 'dart:convert';",
+            "",
+            "const baseUrl = 'http://gerador-nomes.herokuapp.com/nomes/10';",
+            "",
+            "class ${1:Api} extends GetConnect {",
+            "",
+            "",
+            "",
+            "// Get request",
+            "Future<Response> getUser(int id) => get('http://youapi/users/$id');",
+            "// Post request",
+            "Future<Response> postUser(Map data) => post('http://youapi/users', body: data);",
+            "// Post request with File",
+            "Future<Response<CasesModel>> postCases(List<int> image) {",
+            "\tfinal form = FormData({",
+            "\t\t'file': MultipartFile(image, filename: 'avatar.png'),",
+            "\t\t'otherFile': MultipartFile(image, filename: 'cover.png'),",
+            "\t});",
+            "\treturn post('http://youapi/users/upload', form);",
+            "}",
+            "GetSocket userMessages() {",
+            "\treturn socket('https://yourapi/users/socket');",
+            "}",
+            "",
+            "}"
+        ],
+        "description": "Generate Provider file with GetConnect"
+    },
+    "GetXMasterProviderDio Snippet": {
+        "prefix": "getxmasterproviderdio",
+        "body": [
+            "import 'dart:convert';",
+            "import 'package:dio/dio.dart';",
+            "import 'package:meta/meta.dart';",
+            "",
+            "const baseUrl = 'http://gerador-nomes.herokuapp.com/nomes/10';",
+            "",
+            "class ${1:My}ApiClient {",
+            "",
+            "final Dio httpClient;",
+            "$1ApiClient({@required this.httpClient});",
+            "",
+            "",
+            "getAll() async {",
+            "\ttry {",
+            "\t\tvar response = await httpClient.get(baseUrl);",
+            "\t\tif(response.statusCode == 200){",
+            "\t\t\tMap<String, dynamic> jsonResponse = json.decode(response.data);",
+            "\t\t\t\tList<${2:MyModel}> list$2 = jsonResponse['data'].map<$2>((map) { ",
+            "\t\t\t\t\treturn $2.fromJson(map);",
+            "\t\t\t\t}).toList();",
+            "\t\t\treturn list$2;",
+            "\t\t}else print ('erro -get');",
+            "\t} catch(_){ }",
+            "}",
+            "",
+            "}"
+        ],
+        "description": "Generate Provider dio file"
+    },
+    "GetXMasterRepository Snippet": {
+        "prefix": "getxmasterrepository",
+        "body": [
+            "",
+            "class ${1:My}Repository {",
+            "",
+            "final ${2:My}Api api;",
+            "",
+            "$1Repository(this.api);",
+            "",
+            "getAll(){",
+            "\treturn api.getAll();",
+            "}",
+            "getId(id){",
+            "\treturn api.getId(id);",
+            "}",
+            "delete(id){",
+            "\treturn api.delete(id);",
+            "}",
+            "edit(obj){",
+            "\treturn api.edit( obj );",
+            "}",
+            "add(obj){",
+            "\t\treturn api.add( obj );",
+            "}",
+            "",
+            "}"
+        ],
+        "description": "Generate Repository file."
+    },
+    "GetXMasterMain Snippet": {
+        "prefix": "getxmastermain",
+        "body": [
+            "import 'package:flutter/material.dart';",
+            "import 'package:get_x_master/get_x_master.dart';",
+            "",
+            "void main() {",
+            "\trunApp(",
+            "\t\tGetMaterialApp(",
+            "\t\t\t\tdebugShowCheckedModeBanner: false,",
+            "\t\t\t\tinitialRoute: Routes.SPLASH,",
+            "\t\t\t\ttheme: appThemeData,",
+            "\t\t\t\tdefaultTransition: Transition.fade,",
+            "\t\t\t\tinitialBinding: SplashBinding(),",
+            "\t\t\t\tgetPages: AppPages.pages,",
+            "\t\t\t\thome: SplashPage(),",
+            "\t\t)",
+            "\t);",
+            "}"
+        ],
+        "description": "Replace Main file."
+    },
+    "GetXMasterGet_ Snippet": {
+        "prefix": "getxmasterget_",
+        "body": [
+            "get ${1:value} => this._$1.value;"
+        ],
+        "description": "Generate get value."
+    },
+    "GetXMasterGet_Snippet": {
+        "prefix": "getxmasterget",
+        "body": [
+            "get ${1:value} => this.$1.value;"
+        ],
+        "description": "Generate get value."
+    },
+    "GetXMasterSet_ Snippet_": {
+        "prefix": "getxmasterset_",
+        "body": [
+            "set ${1:value}(value) => this._$1.value = value;"
+        ],
+        "description": "Generate set value."
+    },
+    "GetXMasterSet Snippet": {
+        "prefix": "getxmasterset",
+        "body": [
+            "set ${1:value}(value) => this.$1.value = value;"
+        ],
+        "description": "Generate set value."
+    },
+    "GetFinal_ Snippet": {
+        "prefix": "getxmasterfinal_",
+        "body": [
+            "",
+            "final _${1:value} = ${2:''}.obs;",
+            "get $1 => this._$1.value;",
+            "set $1(value) => this._$1.value = value;",
+            ""
+        ],
+        "description": "Generate fully final, get and setter private. "
+    },
+    "GetFinal Snippet": {
+        "prefix": "getxmasterfinal",
+        "body": [
+            "",
+            "final ${1:value} = ${2:''}.obs;",
+            ""
+        ],
+        "description": "Generate simple final obs, get and setter. "
+    },
+    "GetList Snippet": {
+        "prefix": "getxmasterlist",
+        "body": [
+            "",
+            "GetX<${1:My}Controller>(",
+            "",
+            "\t//autoRemove: false,",
+            "\t//assignId: false,",
+            "\tinit: $1Controller(),",
+            "\tinitState: (state){ Get.find<$1Controller>().obj = 'fast code get snittpets' ;},",
+            "\tbuilder: (_) {",
+            "\t\treturn",
+            "\t\t_.obj.isEmpty ?",
+            "\t\t\t Center(child: CircularProgressIndicator());",
+            "\t\t:",
+            "\t\tListView.separated(",
+            "\t\tseparatorBuilder: (context, index) => Divider(height: 1,),",
+            "\t\titemCount: 5,",
+            "\t\titemBuilder: (context, index){",
+            "\t\t\treturn ListTile(",
+            "\t\t\t\tonTap :(){},",
+            "\t\t\t\ttitle: Text(_.obj),",
+            "\t\t\t\tsubtitle: Text(index.toString()),",
+            "\t\t\t);",
+            "\t\t})",
+            "\t}",
+            ")"
+        ],
+        "description": "Generates a ListView with GetX widget, fully functional. "
+    },
+    "GetListDismissible Snippet": {
+        "prefix": "getxmasterlistdismissible",
+        "body": [
+            "",
+            "GetX<${1:My}Controller>(",
+            "",
+            "\t//autoRemove: false,",
+            "\t//assignId: false,",
+            "\tinit: $1Controller(),",
+            "\tinitState: (state){ Get.find<$1Controller>().obj = 'fast code get snittpets' ;},",
+            "\tbuilder: (_) {",
+            "\t\treturn",
+            "\t\t_.obj.isEmpty ?",
+            "\t\t\t Center(child: CircularProgressIndicator());",
+            "\t\t:",
+            "\t\tListView.builder(",
+            "\t\titemCount: 5,",
+            "\t\titemBuilder: (context, index){",
+            "\t\t\treturn Dismissible(",
+            "\t\t\t\tonDismissed: (direction){ direction == DismissDirection.endToStart ? _.${2:remove}() : _.${3:edit}() },",
+            "\t\t\t\tdirection: DismissDirection.horizontal,",
+            "\t\t\t\tbackground: Container(",
+            "\t\t\t\t\tcolor: Colors.green,",
+            "\t\t\t\t\tchild: Align(",
+            "\t\t\t\t\t\talignment: Alignment(-0.9, 0),",
+            "\t\t\t\t\t\tchild: Icon(Icons.edit, color: Colors.white),",
+            "\t\t\t\t\t),",
+            "\t\t\t\t),",
+            "\t\t\t\tsecondaryBackground: Container(",
+            "\t\t\t\t\tcolor: Colors.red,",
+            "\t\t\t\t\tchild: Align(",
+            "\t\t\t\t\t\talignment: Alignment(0.9, 0),",
+            "\t\t\t\t\t\tchild: Icon(Icons.delete, color: Colors.white),",
+            "\t\t\t\t\t),",
+            "\t\t\t\t),",
+            "\t\t\t\tkey: UniqueKey(),",
+            "\t\t\t\tchild: ListTile(",
+            "\t\t\t\t\tonTap:(){},",
+            "\t\t\t\t\ttitle: Text(_.obj),",
+            "\t\t\t\t\tsubtitle: Text(index.toString()),",
+            "\t\t\t\t),",
+            "\t\t\t);",
+            "\t\t})",
+            "\t}",
+            ")"
+        ],
+        "description": "Generates a ListView with GetX and Dismissible widget, fully functional."
+    },
+    "GetMyWidget Snippet": {
+        "prefix": "getxmastermywidget",
+        "body": [
+            "${1:MyCustomWidget}($2),"
+        ],
+        "description": "Instance of your custom component. "
+    },
+    "GetButton Snippet": {
+        "prefix": "getxmasterbutton",
+        "body": [
+            "",
+            "MaterialButton(",
+            "\tcolor: ${1:Colors.blue},",
+            "\tonPressed: ()=> this.controller.${2:function()},",
+            "\tsplashColor: ${3:Colors.blueGrey},",
+            "\tchild: Text('${4:OK}',",
+            "\t\tstyle: TextStyle(",
+            "\t\t\tcolor: ${5:Colors.white},",
+            "\t\t\tfontSize: ${6:16},",
+            "\t\t),",
+            "\t),",
+            "),"
+        ],
+        "description": "Generates a Standard RaisedButtom with its attributes. "
+    },
+    "GetButtonWidget Snippet": {
+        "prefix": "getxmasterbuttonwidget",
+        "body": [
+            "import 'package:flutter/material.dart';",
+            "class CustomButton extends Container {",
+            "\tfinal Function function;",
+            "\tfinal String text;",
+            "\tfinal Color color;",
+            "\tfinal Color textColor;",
+            "\tfinal Color splashColor;",
+            "\tfinal double fontSize;",
+            "",
+            "\tCustomButton({",
+            "\t\t@required this.function,",
+            "\t\t@required this.text,",
+            "\t\tthis.splashColor = Colors.blueGrey,",
+            "\t\tthis.fontSize = 16,",
+            "\t\tthis.color = Colors.blue,",
+            "\t\tthis.textColor = Colors.white,",
+            "\t});",
+            "",
+            "\t@override",
+            "\tWidget build(BuildContext context) {",
+            "\t\treturn MaterialButton(",
+            "\t\t\tsplashColor: this.splashColor,",
+            "\t\t\tonPressed: ()=> this.function(),",
+            "\t\t\tcolor: this.color,",
+            "\t\t\tchild: Text(",
+            "\t\t\t\tthis.text,",
+            "\t\t\t\tstyle: TextStyle(",
+            "\t\t\t\t\tcolor: this.textColor,",
+            "\t\t\t\t\tfontSize: this.fontSize,",
+            "\t\t\t\t),",
+            "\t\t\t),",
+            "\t\t);",
+            "\t}",
+            "}"
+        ],
+        "description": "Generate a stateless class with a RaisedButton that can be reused by more than one widget."
+    },
+    "GetFAB Snippet": {
+        "prefix": "getxmasterfab",
+        "body": [
+            "",
+            "FloatingActionButton(",
+            "\tonPressed: () {},",
+            "\tchild: Icon(",
+            "\t\tIcons.add,",
+            "\t\tcolor: Colors.white,",
+            "\t),",
+            "\tbackgroundColor: Colors.blue,",
+            "),"
+        ],
+        "description": "Generates a Standard FloatingActionButton with its attributes. "
+    },
+    "GetFABWidget Snippet": {
+        "prefix": "getxmasterfabwidget",
+        "body": [
+            "import 'package:flutter/material.dart';",
+            "class CustomFAB extends StatelessWidget {",
+            "\tfinal Function function;",
+            "\tfinal Color bgColor;",
+            "\tfinal Color iconColor;",
+            "\tfinal Color splashColor;",
+            "\tfinal double fontSize;",
+            "\tfinal Icon icon;",
+            "",
+            "\tCustomFAB({",
+            "\t\t@required this.function,",
+            "\t\t@required this.icon,",
+            "\t\tthis.iconColor = Colors.white,",
+            "\t\tthis.splashColor = Colors.blueGrey,",
+            "\t\tthis.fontSize = 16,",
+            "\t\tthis.bgColor = Colors.blue,",
+            "\t});",
+            "",
+            "\t@override",
+            "\tWidget build(BuildContext context) {",
+            "\t\treturn FloatingActionButton(",
+            "\t\t\tsplashColor: this.splashColor,",
+            "\t\t\tonPressed: ()=> this.function,",
+            "\t\t\tbackgroundColor: this.bgColor,",
+            "\t\t\tchild: this.icon",
+            "\t\t);",
+            "\t}",
+            "}"
+        ],
+        "description": "Generate a stateless class with a FloatingActionButton that can be reused by more than one widget."
+    },
+    "GetForm Snippet": {
+        "prefix": "getxmasterformwidget",
+        "body": [
+            "import 'package:flutter/material.dart';",
+            "import 'package:get_x_master/get_x_master.dart';",
+            "",
+            "class ${1:Custom}Form extends Container {",
+            "\tfinal GlobalKey<FormState> _formKey = GlobalKey<FormState>();",
+            "\tfinal controller = Get.find<${1:Controller>();",
+            "\t@override",
+            "\tWidget build(BuildContext context) {",
+            "\t\treturn Form(",
+            "\t\t\t\t\tkey: key,",
+            "\t\t\t\t\tchild: Column(",
+            "\t\t\t\t\t\tchildren: [",
+            "\t\t\t\t\t\t\tTextFormField(",
+            "\t\t\t\t\t\t\t\tkeyboardType: TextInputType.emailAddress,",
+            "\t\t\t\t\t\t\t\tonSaved: (v) => this.controller.onSavedEmail(v),",
+            "\t\t\t\t\t\t\t\tonChanged: (v) => this.controller.onChangedEmail(v),",
+            "\t\t\t\t\t\t\t\tvalidator: (v) => this.controller.onValidateEmail(v)",
+            "\t\t\t\t\t\t\t\tdecoration: InputDecoration(labelText: 'Email'),",
+            "\t\t\t\t\t\t\t\tenableSuggestions: true,",
+            "\t\t\t\t\t\t\t\tmaxLength: 32,",
+            "\t\t\t\t\t\t\t\tstyle: TextStyle(fontSize: 20),",
+            "\t\t\t\t\t\t\t),",
+            "\t\t\t\t\t\t\tTextFormField(",
+            "\t\t\t\t\t\t\t\tkeyboardType: TextInputType.text,",
+            "\t\t\t\t\t\t\t\tonSaved: (v) => this.controller.onSavedPassword(v),",
+            "\t\t\t\t\t\t\t\tonChanged: (v) => this.controller.onChangedPassword(v),",
+            "\t\t\t\t\t\t\t\tvalidator: (v) => this.controller.onValidatePassword(v)",
+            "\t\t\t\t\t\t\t\tdecoration: InputDecoration(labelText: 'Senha'),",
+            "\t\t\t\t\t\t\t\tenableSuggestions: true,",
+            "\t\t\t\t\t\t\t\tobscureText: true,",
+            "\t\t\t\t\t\t\t\tmaxLength: 20,",
+            "\t\t\t\t\t\t\t\tstyle: TextStyle(fontSize: 20),",
+            "\t\t\t\t\t\t\t),",
+            "\t\t\t\t\t\t\tMaterialButton(",
+            "\t\t\t\t\t\t\t\tonPressed: (){",
+            "\t\t\t\t\t\t\t\t\tfinal FormState form = this._formKey.currentState!;",
+            "\t\t\t\t\t\t\t\t\tform.validate()",
+            "\t\t\t\t\t\t\t\t\t? form.save()",
+            "\t\t\t\t\t\t\t\t\t: print('erro ao logar');",
+            "\t\t\t\t\t\t\t\t\tprint(_.user.email);",
+            "\t\t\t\t\t\t\t\t\tprint(_.user.password);",
+            "\t\t\t\t\t\t\t\t\t_.login();",
+            "\t\t\t\t\t\t\t\t},",
+            "\t\t\t\t\t\t\t\tchild: Text('OK'),",
+            "\t\t\t\t\t\t\t)",
+            "\t\t\t\t\t\t],",
+            "\t\t);",
+            "\t}",
+            "}"
+        ],
+        "description": "Generate a Form Widget with getx components."
+    },
+    "Ex: Controller controller = Get.put(Controller());": {
+        "prefix": "getxmasterput",
+        "body": [
+            "${1:Controller} ${2:controller} = Get.put(${1:Controller}());"
+        ],
+        "description": "Ex: Controller controller = Get.put(Controller());"
+    },
+    "Ex: Controller controller = Get.find();": {
+        "prefix": "getxmasterfind",
+        "body": [
+            "${1:Controller} ${2:controller} = Get.find();"
+        ],
+        "description": "Ex: Controller controller = Get.find();"
+    },
+    "Get.snackbar": {
+        "prefix": "getxmastersnackbar",
+        "body": [
+            "Get.snackbar('${1:Hi}', '${2:i am a modern snackbar}');"
+        ],
+        "description": "Get.snackbar"
+    },
+    "Get.dialog": {
+        "prefix": "getxmasterdialog",
+        "body": [
+            "Get.dialog(${1:YourDialogWidget}());"
+        ],
+        "description": "Get.dialog"
+    },
+    "Get.bottomSheet": {
+        "prefix": "getxmasterbottomsheet",
+        "body": [
+            "Get.bottomSheet(",
+            "  Container(",
+            "    child: Wrap(",
+            "      children: <Widget>[",
+            "        ListTile(",
+            "          leading: Icon(Icons.music_note),",
+            "          title: Text('Music'),",
+            "          onTap: () => {}",
+            "        ),",
+            "        ListTile(",
+            "          leading: Icon(Icons.videocam),",
+            "          title: Text('Video'),",
+            "          onTap: () => {},",
+            "        ),",
+            "      ],",
+            "    ),",
+            "  ),",
+            "  backgroundColor: Colors.white",
+            ");"
+        ],
+        "description": "Get.bottomSheet"
+    },
+    "Get onInit()": {
+        "prefix": "getxmasteronInit",
+        "body": [
+            "@override",
+            "void onInit() {",
+            "  ${1:fetchApi}();",
+            "  super.onInit();",
+            "}"
+        ],
+        "description": "Get onInit()"
+    },
+    "Get onReady()": {
+        "prefix": "getxmasteronReady",
+        "body": [
+            "@override",
+            "void onReady() {",
+            "  ${1:fetchApi}();",
+            "  super.onReady();",
+            "}"
+        ],
+        "description": "Get onReady()"
+    },
+    "Get onClose()": {
+        "prefix": "getxmasteronClose",
+        "body": [
+            "  @override",
+            "  void onClose() {",
+            "    ${1:user}.close();",
+            "    super.onClose();",
+            "  }"
+        ],
+        "description": "Get onClose()"
+    },
+    "Get lazyPut": {
+        "prefix": "getxmasterlazyPut",
+        "body": [
+            "Get.lazyPut<${1:ControllerX}>(() => ${1:ControllerX}());"
+        ],
+        "description": "Get lazyPut"
+    },
+     "Get smartLazyPut": {
+        "prefix": "getxmastersmartLazyPut",
+        "body": [
+            "Get.lazyPut<${1:ControllerX}>(() => ${1:ControllerX}());"
+        ],
+        "description": "Get smartLazyPut"
+    },
+    "GetXMasterSmartPut Snippet": {
+        "prefix": "getxmastersmartPut",
+        "body": [
+            "smartPut<${1:Service}>(",
+            "  builder: () => ${1:Service}(),",
+            "  condition: () => ${2:true},",
+            "  validityCheck: (instance) => ${3:true},",
+            "  tag: '${4:tag}',",
+            "  permanent: ${5:false},",
+            "  fenix: ${6:false},",
+            ");"
+        ],
+        "description": "Smart dependency injection with conditional logic. Parameters: builder (required), condition (optional), validityCheck (optional), tag (optional), permanent (default: false), fenix (default: false). Example: smartPut<DatabaseService>(builder: () => DatabaseService(), condition: () => NetworkManager.isConnected)."
+    },
+    "GetXMasterSmartPutIf Snippet": {
+        "prefix": "getxmastersmartPutIf",
+        "body": [
+            "smartPutIf<${1:Service}>(",
+            "  primaryCondition: () => ${2:true},",
+            "  builder: () => ${1:Service}(),",
+            "  secondaryValidation: (instance) => ${3:true},",
+            "  fallbackBuilder: () => ${4:FallbackService}(),",
+            "  tag: '${5:tag}',",
+            "  permanent: ${6:false},",
+            "  enableLogging: ${7:false},",
+            ");"
+        ],
+        "description": "Advanced smart dependency injection with fallback support. Parameters: primaryCondition (required), builder (required), secondaryValidation (optional), fallbackBuilder (optional), tag (optional), permanent (default: false), enableLogging (default: false). Example: smartPutIf<UserService>(primaryCondition: () => AuthManager.isLoggedIn, builder: () => UserService(), fallbackBuilder: () => GuestUserService())."
+    },
+    "GetXMasterLazyManage Snippet": {
+        "prefix": "getxmasterlazyManage",
+        "body": [
+            "lazyManage<${1:Service}>(",
+            "  builder: () => ${1:Service}(),",
+            "  initCondition: () => ${2:true},",
+            "  tag: '${3:tag}',",
+            "  permanent: ${4:false},",
+            ");"
+        ],
+        "description": "Lazy dependency management with optional initialization condition. Parameters: builder (required), initCondition (optional), tag (optional), permanent (default: false). Example: lazyManage<ExpensiveService>(builder: () => ExpensiveService(), initCondition: () => FeatureFlags.isServiceEnabled)."
+    },
+    "Get toNamed": {
+        "prefix": "getxmastertoNamed",
+        "body": [
+            "Get.toNamed(\"/${1:NextScreen}\");"
+        ],
+        "description": "Get toNamed"
+    },
+    "Get offNamed": {
+        "prefix": "getxmasteroffNamed",
+        "body": [
+            "Get.offNamed(\"/${1:NextScreen}\");"
+        ],
+        "description": "Get offNamed"
+    },
+    "Get offAllNamed": {
+        "prefix": "getxmasteroffAllNamed",
+        "body": [
+            "Get.offAllNamed(\"/${1:NextScreen}\");"
+        ],
+        "description": "Get offAllNamed"
+    },
+    "Get.to": {
+        "prefix": "getxmasterto",
+        "body": [
+            "Get.to(${1:NextScreen}());"
+        ],
+        "description": "Get.to"
+    },
+    "Get.off": {
+        "prefix": "getxmasteroff",
+        "body": [
+            "Get.off(${1:NextScreen}());"
+        ],
+        "description": "Get.off"
+    },
+    "Get.offAll": {
+        "prefix": "getxmasteroffAll",
+        "body": [
+            "Get.offAll(${1:NextScreen}());"
+        ],
+        "description": "Get.offAll"
+    },
+    "GetXStorage Instance": {
+        "prefix": "getxmasterXStorageInstance",
+        "body": [
+            "final ${1:box} = GetXStorage();"
+        ],
+        "description": "Create a GetXStorage instance"
+    },
+    "GetXStorage Write": {
+        "prefix": "getxmasterXStorageWrite",
+        "body": [
+            "await ${1:box}.write(key: '${2:key}', value: ${3:value});"
+        ],
+        "description": "Write data to GetXStorage"
+    },
+    "GetXStorage Read": {
+        "prefix": "getxmasterXStorageRead",
+        "body": [
+            "${1:type}? ${2:variable} = ${3:box}.read<${1:type}>(key: '${4:key}');"
+        ],
+        "description": "Read data from GetXStorage"
+    },
+    "GetXStorage Write List": {
+        "prefix": "getxmasterXStorageWriteList",
+        "body": [
+            "await ${1:box}.writeList<${2:type}>(key: '${3:key}', value: ${4:list});"
+        ],
+        "description": "Write a list to GetXStorage"
+    },
+    "GetXStorage Read List": {
+        "prefix": "getxmasterXStorageReadList",
+        "body": [
+            "List<${1:type}>? ${2:variable} = ${3:box}.readList<${1:type}>(key: '${4:key}');"
+        ],
+        "description": "Read a list from GetXStorage"
+    },
+    "GetXStorage Has Data": {
+        "prefix": "getxmasterXStorageHasData",
+        "body": [
+            "bool ${1:hasKey} = ${2:box}.hasData(key: '${3:key}');"
+        ],
+        "description": "Check if a key exists in GetXStorage"
+    },
+    "GetXStorage Remove": {
+        "prefix": "getxmasterXStorageRemove",
+        "body": [
+            "await ${1:box}.remove(key: '${2:key}');"
+        ],
+        "description": "Remove data from GetXStorage"
+    },
+    "GetXStorage Erase": {
+        "prefix": "getxmasterXStorageErase",
+        "body": [
+            "await ${1:box}.erase();"
+        ],
+        "description": "Clear all data in GetXStorage"
+    },
+    "GetXStorage Listen": {
+        "prefix": "getxmasterXStorageListen",
+        "body": [
+            "${1:box}.listen(() {",
+            "  // Handle storage changes",
+            "});"
+        ],
+        "description": "Listen to all changes in GetXStorage"
+    },
+    "GetXStorage Listen Key": {
+        "prefix": "getxmasterXStorageListenKey",
+        "body": [
+            "${1:box}.listenKey(",
+            "  key: '${2:key}',",
+            "  callback: (value) {",
+            "    // Handle key changes",
+            "  },",
+            ");"
+        ],
+        "description": "Listen to changes of a specific key in GetXStorage"
+    },
+    "GetXStorage Change Value": {
+        "prefix": "getxmasterXStorageChangeValue",
+        "body": [
+            "${1:box}.changeValueOfKey(key: '${2:key}', newValue: ${3:value});"
+        ],
+        "description": "Change the value of a key in GetXStorage"
+    },
+    "GetXStorage Write If Null": {
+        "prefix": "getxmasterXStorageWriteIfNull",
+        "body": [
+            "await ${1:box}.writeIfNull(key: '${2:key}', value: ${3:value});"
+        ],
+        "description": "Write data only if the key doesn't exist in GetXStorage"
+    },
+    "GetXStorage Initialization": {
+        "prefix": "getxmasterXStorageInit",
+        "body": [
+            "void main() async {",
+            "  await GetXStorage.init();",
+            "  runApp(MyApp());",
+            "}"
+        ],
+        "description": "Initialize GetXStorage in the main function"
+    },
+    "GetXStorage Custom Container": {
+        "prefix": "getxmasterXStorageCustomContainer",
+        "body": [
+            "final ${1:container} = GetXStorage('${2:containerName}');"
+        ],
+        "description": "Create a custom container in GetXStorage"
+    },
+    "Get defaultDialog": {
+        "prefix": "getxmasterdefaultdialog",
+        "body": [
+            "Get.defaultDialog(",
+            "  onConfirm: () => print(\"Ok\"),",
+            "  middleText: \"${1:Dialog made in 3 lines of code}\"",
+            ");"
+        ],
+        "description": "Get defaultDialog"
+    },
+    "Get Splash Page": {
+        "prefix": "getxmastersplashpage",
+        "body": [
+            "import 'package:flutter/material.dart';",
+            "import 'package:get_x_master/get_x_master.dart';",
+            "class SplashPage extends StatefulWidget {",
+            "@override",
+            "_SplashPageState createState() => _SplashPageState();",
+            "}",
+            "class _SplashPageState extends State<SplashPage> {",
+              "@override",
+              "void initState() {",
+              "super.initState();",
+              "Future.delayed(Duration(seconds: 2), () => Get.toNamed('login'));",
+            "}",
+            "@override",
+            "Widget build(BuildContext context) {",
+              "return Container(",
+                "color: Colors.white,",
+                "child: Column(children: <Widget>[",
+                  "Padding(",
+                    "padding: EdgeInsets.only(top: 200, bottom: 10),",
+                    "child: Container(",
+                      "height: 200,",
+                      "width: 200,",
+                      "/*decoration: BoxDecoration(",
+                          "image: DecorationImage(",
+                              "image: AssetImage('images/img_splash.png'),",
+                              "fit: BoxFit.fill)),*/",
+                    "),",
+                  "),",
+                  "Text(",
+                    "'CONNECT',",
+                    "style: TextStyle(",
+                        "color: Colors.greenAccent,",
+                        "fontSize: 20,",
+                        "decoration: TextDecoration.none),",
+                  "),",
+                "]),",
+              ");",
+            "}",
+          "}"
+        ],
+        "description": "Get defaultDialog"
+    }
+}

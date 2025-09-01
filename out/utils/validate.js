@@ -1,0 +1,16 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.validateCode = void 0;
+exports.validateCode = (codeX, total) => {
+    let regex = /[;),\]]/;
+    let bool = false;
+    for (let i = 0; i < 666; i++) {
+        const value = codeX.charAt(total).trim();
+        if (value) {
+            return regex.test(value) ? true : bool;
+        }
+        total++;
+    }
+    return bool;
+};
+//# sourceMappingURL=validate.js.map

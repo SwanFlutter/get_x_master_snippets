@@ -1,0 +1,123 @@
+{
+	"name": "get-x-master-snippets",
+	"displayName": "GetX Master Snippets",
+	"description": "An extension to accelerate the process of developing applications with flutter, aimed at everyone using the GetX Master package.",
+	"version": "1.0.0",
+	"publisher": "get-x-master",
+	"engines": {
+		"vscode": "^1.2.0"
+	},
+	"categories": [
+		"Snippets",
+		"Programming Languages",
+		"Other"
+	],
+	"activationEvents": [
+		"workspaceContains:pubspec.yaml"
+	],
+	"keywords": [
+		"dart",
+		"flutter",
+		"angulardart",
+		"get",
+		"getX",
+		"getXMaster",
+		"state-management"
+	],
+	"repository": {
+		"type": "git",
+		"url": ""
+	},
+	"icon": "icon.jpeg",
+	"author": "custom",
+	"contributors": [],
+	"license": "ISC",
+	"bugs": {
+		"url": ""
+	},
+	"main": "./out/extension.js",
+	"contributes": {
+		"snippets": [
+			{
+				"language": "dart",
+				"path": "./snippets/snippets.json"
+			}
+		],
+		"commands": [
+			{
+				"command": "get.wrapInGetx",
+				"title": "Wrap GetX",
+				"category": "Dart"
+			},
+			{
+				"command": "get.wrapInGetBuilder",
+				"title": "Wrap GetBuilder",
+				"category": "Dart"
+			},
+			{
+				"command": "get.wrapInObx",
+				"title": "Wrap Obx",
+				"category": "Dart"
+			}
+		],
+		"keybindings": [
+			{
+				"command": "get.removeKey",
+				"key": "alt+x",
+				"mac": "alt+x",
+				"when": "editorTextFocus"
+			},
+			{
+				"command": "get.removeKey",
+				"key": "alt+g",
+				"mac": "alt+g",
+				"when": "editorTextFocus"
+			},
+			{
+				"command": "get.removeKey",
+				"key": "alt+o",
+				"mac": "alt+o",
+				"when": "editorTextFocus"
+			}
+		]
+	},
+	"menus": {
+		"explorer/context": [],
+		"commandPalette": [
+			{
+				"command": "get.wrapInGetx",
+				"when": "editorLangId == dart"
+			},
+			{
+				"command": "get.wrapInGetBuilder",
+				"when": "editorLangId == dart"
+			},
+			{
+				"command": "get.wrapInObx",
+				"when": "editorLangId == dart"
+			}
+		]
+	},
+	"scripts": {},
+	"devDependencies": {
+		"@types/vscode": "^1.2.0",
+		"@types/glob": "^7.1.1",
+		"@types/mocha": "^7.0.2",
+		"@types/node": "^13.11.0",
+		"eslint": "^6.8.0",
+		"@typescript-eslint/parser": "^2.30.0",
+		"@typescript-eslint/eslint-plugin": "^2.30.0",
+		"glob": "^7.1.6",
+		"mocha": "^7.1.2",
+		"typescript": "^3.8.3",
+		"vscode-test": "^1.3.0"
+	},
+	"dependencies": {
+		"vsce": "^1.85.0"
+	},
+	"__metadata": {
+		"installedTimestamp": 1745782146379,
+		"targetPlatform": "undefined",
+		"size": 30594221
+	}
+}
