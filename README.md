@@ -1,6 +1,8 @@
-# GetX Master Snippets
-[![Star on GitHub](https://img.shields.io/github/stars/kauemurakami/get_snippets_extension.svg?style=flat&logo=github&colorB=deeppink&label=stars)](https://pub.dev/packages/get_x_master)
 <img width="700" height="200" alt="icon_readme" src="https://github.com/user-attachments/assets/1d97f1e7-a4d7-459c-8267-3f77c70a20e1" />
+
+[![Star on GitHub](https://img.shields.io/github/stars/SwanFlutter/get_x_master_snippets.svg?style=flat&logo=github&colorB=deeppink&label=stars)](https://github.com/SwanFlutter/get_x_master_snippets)
+
+# GetX Master Snippets
 
 Extension made for you, who also uses this powerful library and doesn't like to waste time.
 To that extent, you find snippets of snippets of code, or even entire classes, generated with just a few keystrokes, it's quick and easy.
@@ -9,6 +11,7 @@ We came to make your development with [Get_X_Master](https://pub.dev/packages/ge
 So get out front and start using, it's just 50 snippets, with fully intuitive prefixes, so you don't forget :D
 
 > The extension was made so that we can start a complete functional project without any necessary changes.
+
 
 
 #### download extension on [MarketPlace](https://marketplace.visualstudio.com/items?itemName=get-snippets.get-snippets)
