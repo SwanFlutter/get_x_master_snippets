@@ -1,15 +1,18 @@
+<img width="700" height="200" alt="icon_readme" src="https://github.com/user-attachments/assets/1d97f1e7-a4d7-459c-8267-3f77c70a20e1" />
+
+[![Star on GitHub](https://img.shields.io/github/stars/SwanFlutter/get_x_master_snippets.svg?style=flat&logo=github&colorB=deeppink&label=stars)](https://github.com/SwanFlutter/get_x_master_snippets)
+
 # GetX Master Snippets
-[![Star on GitHub](https://img.shields.io/github/stars/kauemurakami/get_snippets_extension.svg?style=flat&logo=github&colorB=deeppink&label=stars)](https://pub.dev/packages/get_x_master) 
-<a href="https://www.buymeacoffee.com/kauemurakami" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 51px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
 
-![](https://github.com/kauemurakami/get_snippets_extension/raw/master/images/icon_readme.png) 
+Extension made for you, who also uses this powerful library and doesn't like to waste time.
+To that extent, you find snippets of snippets of code, or even entire classes, generated with just a few keystrokes, it's quick and easy.
 
-Extension made for you, who also uses this powerful library and doesn't like to waste time.  
-To that extent, you find snippets of snippets of code, or even entire classes, generated with just a few keystrokes, 
-it's quick and easy.  
-We came to make your development with [GetX Master](https://pub.dev/packages/get_x_master) easy !!!    
-So get out front and start using, it's just 50 snippets, with fully intuitive prefixes, so you don't forget :D  
+We came to make your development with [Get_X_Master](https://pub.dev/packages/get_x_master) easy!!!
+So get out front and start using, it's just 50 snippets, with fully intuitive prefixes, so you don't forget :D
+
 > The extension was made so that we can start a complete functional project without any necessary changes.
+
+
 
 #### download extension on [MarketPlace](https://marketplace.visualstudio.com/items?itemName=get-snippets.get-snippets)
 #### If you are with us until now or just arrived, you will also like this documentation that I have prepared with love to help you :heart: use GetX in an easy and intuitive way! know [getxmasterx_pattern](https://pub.dev/packages/get_x_master)  
