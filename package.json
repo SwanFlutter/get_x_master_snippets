@@ -2,7 +2,7 @@
 	"name": "get-x-master-snippets",
 	"displayName": "GetX Master Snippets",
 	"description": "An extension to accelerate the process of developing applications with flutter, aimed at everyone using the GetX Master package.",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"publisher": "sajjadkarimi",
 	"engines": {
 		"vscode": "^1.2.0"
@@ -26,14 +26,14 @@
 	],
 	"repository": {
 		"type": "git",
-		"url": ""
+		"url": "https://github.com/SwanFlutter/get_x_master_snippets"
 	},
 	"icon": "icon.jpeg",
 	"author": "custom",
 	"contributors": [],
 	"license": "ISC",
 	"bugs": {
-		"url": ""
+		"url": "https://github.com/SwanFlutter/get_x_master_snippets/issues"
 	},
 	"main": "./out/extension.js",
 	"contributes": {

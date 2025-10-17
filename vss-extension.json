@@ -1,7 +1,7 @@
 {
     "manifestVersion": 1,
     "id": "get-x-master-snippets",
-    "version": "1.0.0",
+    "version": "1.0.2",
     "publisher": "get-x-master",
     "name": "GetX Master Snippets for Flutter",
     "description": "An extension to accelerate the process of developing applications with flutter, aimed at everyone using the GetX Master package.",

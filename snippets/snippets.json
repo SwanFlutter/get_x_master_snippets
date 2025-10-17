@@ -1406,5 +1406,12 @@
           "}"
         ],
         "description": "Get defaultDialog"
+    },
+    "getxmastergetto": {
+        "prefix": "getxmastergetter",
+        "body": [
+            "static $1 get to => Get.smartFind<$1>();"
+        ],
+        "description": "Getter via Get.smartFind with mirrored type placeholder"
     }
 }
