@@ -22,7 +22,7 @@ vscode ^1.43.0
 dependencies:
   flutter:
     sdk: flutter
-  get_x_master: ^0.0.15
+  get_x_master: ^0.0.33
 ```
 ## Comments
 **implementation**
