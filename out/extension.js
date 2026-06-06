@@ -69,8 +69,8 @@ exports.activate = (context) => {
     context.subscriptions.push(vscode.commands.registerCommand("get.wrapInGetBuilderObs", () => {
         const sp = space_1.SpaceX();
         insert_snippet_1.insertSnippet(
-            "GetBuilderObs<${1:My}Controller>(\n" +
-            sp + "init: ${1:My}Controller(),\n" +
+            "GetBuilderObs<${1:MyController}>(\n" +
+            sp + "init: ${1:MyController}(),\n" +
             sp + "observables: [${2:controller.count}],\n" +
             sp + "filter: (controller) => ${3:controller.count.value},\n" +
             sp + "builder: (controller) {\n" +
