@@ -7,13 +7,13 @@
 ترمینال باز کن و این دستور رو اجرا کن:
 
 ```bash
-code --install-extension "g:\Android\Pakege\vscode\get_x_master_snippets\get-x-master-snippets-1.0.3.vsix"
+code --install-extension "g:\Android\Pakege\vscode\get_x_master_snippets\get-x-master-snippets-1.0.4.vsix"
 ```
 
 اگر Kiro رو به عنوان default editor داری:
 
 ```bash
-kiro --install-extension "g:\Android\Pakege\vscode\get_x_master_snippets\get-x-master-snippets-1.0.3.vsix"
+kiro --install-extension "g:\Android\Pakege\vscode\get_x_master_snippets\get-x-master-snippets-1.0.4.vsix"
 ```
 
 ---
@@ -25,7 +25,7 @@ kiro --install-extension "g:\Android\Pakege\vscode\get_x_master_snippets\get-x-m
 3. گزینه **Install from VSIX...** رو انتخاب کن
 4. فایل زیر رو انتخاب کن:
    ```
-   g:\Android\Pakege\vscode\get_x_master_snippets\get-x-master-snippets-1.0.3.vsix
+   g:\Android\Pakege\vscode\get_x_master_snippets\get-x-master-snippets-1.0.4.vsix
    ```
 5. بعد از نصب، VS Code / Kiro رو **Reload** کن
 
@@ -35,7 +35,7 @@ kiro --install-extension "g:\Android\Pakege\vscode\get_x_master_snippets\get-x-m
 
 1. **Ctrl+Shift+P** بزن
 2. تایپ کن: `Extensions: Install from VSIX`
-3. فایل `get-x-master-snippets-1.0.3.vsix` رو انتخاب کن
+3. فایل `get-x-master-snippets-1.0.4.vsix` رو انتخاب کن
 
 ---
 
