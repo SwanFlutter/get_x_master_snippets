@@ -8,21 +8,13 @@ class CodeActionProvider {
         if (!editorX) {
             return [];
         }
-        // Always show wrap actions — whether or not text is selected.
-        // The wrap commands themselves handle both cases correctly.
         const codeActions = [];
-        codeActions.push({
-            command: "get.wrapInGetx",
-            title: "Wrap with GetX"
-        });
-        codeActions.push({
-            command: "get.wrapInGetBuilder",
-            title: "Wrap with GetBuilder"
-        });
-        codeActions.push({
-            command: "get.wrapInObx",
-            title: "Wrap with Obx"
-        });
+        codeActions.push({ command: "get.wrapInGetx",          title: "Wrap with GetX" });
+        codeActions.push({ command: "get.wrapInGetBuilder",    title: "Wrap with GetBuilder" });
+        codeActions.push({ command: "get.wrapInObx",           title: "Wrap with Obx" });
+        codeActions.push({ command: "get.wrapInObxValue",      title: "Wrap with ObxValue" });
+        codeActions.push({ command: "get.wrapInMultiObx",      title: "Wrap with MultiObx" });
+        codeActions.push({ command: "get.wrapInGetBuilderObs", title: "Wrap with GetBuilderObs" });
         return codeActions;
     }
 }

@@ -4,6 +4,14 @@ All notable changes to the "get-x-master-snippets" extension will be documented 
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [1.0.4] - 2026-06-06
+
+### Added
+- `getxmastergetbuilderobs` — `GetBuilderObs` snippet with `observables`, `filter`, and `builder`
+- `Wrap with GetBuilderObs` — right-click wrap command for GetBuilderObs
+- `Wrap with ObxValue` — right-click wrap command for ObxValue
+- `Wrap with MultiObx` — right-click wrap command for MultiObx
+
 ## [1.0.3] - 2026-06-06
 
 ### Added

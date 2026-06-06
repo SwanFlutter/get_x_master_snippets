@@ -1310,6 +1310,58 @@
         ],
         "description": "Obx widget — automatically rebuilds when any observable inside it changes."
     },
+    "GetXMasterObxValue Snippet2": {
+        "prefix": "getxmasterobxvalue2",
+        "body": [
+            "ObxValue(",
+            "  (${1:data}) => ${2:Switch}(",
+            "    value: $1.value,",
+            "    onChanged: (${3:flag}) => $1.value = $3,",
+            "  ),",
+            "  ${4:false}.obs,",
+            "),"
+        ],
+        "description": "ObxValue — passes a reactive variable directly to the builder. Useful for local state without a controller."
+    },
+    "GetXMasterGetBuilderObs Snippet": {
+        "prefix": "getxmastergetbuilderobs",
+        "body": [
+            "GetBuilderObs<${1:My}Controller>(",
+            "  init: ${1:My}Controller(),",
+            "  observables: [${2:controller.count}],",
+            "  filter: (controller) => ${3:controller.count.value ~/ 10},",
+            "  builder: (controller) {",
+            "    return ${4:Text('\\${controller.count.value}')};",
+            "  },",
+            "),"
+        ],
+        "description": "GetBuilderObs — like GetBuilder but watches specific observables with an optional filter function to control rebuild frequency."
+    },
+    "GetXMasterMultiObx Snippet": {
+        "prefix": "getxmastermultiobx",
+        "body": [
+            "MultiObx(",
+            "  observables: [${1:title}, ${2:counter}, ${3:isDarkMode}],",
+            "  builder: () {",
+            "    return Column(",
+            "      children: [",
+            "        Text($1.value),",
+            "        Text('Counter: \\${$2.value}'),",
+            "        Switch(",
+            "          value: $3.value,",
+            "          onChanged: (value) => $3.value = value,",
+            "        ),",
+            "        ElevatedButton(",
+            "          onPressed: () => $2.value++,",
+            "          child: Text('Increment'),",
+            "        ),",
+            "      ],",
+            "    );",
+            "  },",
+            "),"
+        ],
+        "description": "MultiObx — rebuilds when any of the listed observables change. Ideal for widgets that depend on multiple Rx variables."
+    },
     "GetXMasterGetBuilder Snippet": {
         "prefix": "getxmastergetbuilder",
         "body": [

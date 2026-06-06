@@ -2,7 +2,7 @@
 	"name": "get-x-master-snippets",
 	"displayName": "GetX Master Snippets",
 	"description": "An extension to accelerate the process of developing applications with flutter, aimed at everyone using the GetX Master package.",
-	"version": "1.0.3",
+	"version": "1.0.4",
 	"publisher": "sajjadkarimi",
 	"engines": {
 		"vscode": "^1.2.0"
@@ -46,17 +46,32 @@
 		"commands": [
 			{
 				"command": "get.wrapInGetx",
-				"title": "Wrap GetX",
+				"title": "Wrap with GetX",
 				"category": "Dart"
 			},
 			{
 				"command": "get.wrapInGetBuilder",
-				"title": "Wrap GetBuilder",
+				"title": "Wrap with GetBuilder",
 				"category": "Dart"
 			},
 			{
 				"command": "get.wrapInObx",
-				"title": "Wrap Obx",
+				"title": "Wrap with Obx",
+				"category": "Dart"
+			},
+			{
+				"command": "get.wrapInObxValue",
+				"title": "Wrap with ObxValue",
+				"category": "Dart"
+			},
+			{
+				"command": "get.wrapInMultiObx",
+				"title": "Wrap with MultiObx",
+				"category": "Dart"
+			},
+			{
+				"command": "get.wrapInGetBuilderObs",
+				"title": "Wrap with GetBuilderObs",
 				"category": "Dart"
 			}
 		],
@@ -94,6 +109,18 @@
 			},
 			{
 				"command": "get.wrapInObx",
+				"when": "editorLangId == dart"
+			},
+			{
+				"command": "get.wrapInObxValue",
+				"when": "editorLangId == dart"
+			},
+			{
+				"command": "get.wrapInMultiObx",
+				"when": "editorLangId == dart"
+			},
+			{
+				"command": "get.wrapInGetBuilderObs",
 				"when": "editorLangId == dart"
 			}
 		]
