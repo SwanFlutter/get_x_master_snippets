@@ -14,7 +14,7 @@ So get out front and start using, it's just 50 snippets, with fully intuitive pr
 
 
 
-#### download extension on [MarketPlace](https://marketplace.visualstudio.com/items?itemName=get-snippets.get-snippets)
+#### download extension on [MarketPlace](https://marketplace.visualstudio.com/items?itemName=sajjadkarimi.get-x-master-snippets)
 #### If you are with us until now or just arrived, you will also like this documentation that I have prepared with love to help you :heart: use GetX in an easy and intuitive way! know [getxmasterx_pattern](https://pub.dev/packages/get_x_master)  
 ## Requirements
 ```

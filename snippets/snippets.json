@@ -304,10 +304,9 @@
         "body": [
             "import 'package:get_x_master/get_x_master.dart';",
             "",
-            "class ${1:My}Controller extends GetXController {",
+            "class ${1:My} extends GetXController {",
             "",
             "final ${2:My}Repository repository;",
-            "$1Controller(this.repository);",
             "",
             "\tfinal _${3:obj} = ''.obs;",
             "\tset $3(value) => this._$3.value = value;",
@@ -321,18 +320,18 @@
         "body": [
             "import 'package:get_x_master/get_x_master.dart';",
             "",
-            "class ${1:My}Controller extends GetxController {",
+            "class ${1:My} extends GetXController {",
             "",
             "}"
         ],
-        "description": "Generate void GetController."
+        "description": "Generate empty GetXController."
     },
     "GetXMasterTickerProviderController Snippet": {
         "prefix": "getxmastercontrollerwithSingleGetTickerProviderMixin",
         "body": [
             "import 'package:get_x_master/get_x_master.dart';",
             "",
-            "class ${1:My}Controller extends GetxController with SingleGetTickerProviderMixin {",
+            "class ${1:My} extends GetxController with SingleGetTickerProviderMixin {",
             "",
             "}"
         ],
@@ -373,7 +372,7 @@
         "body": [
             "import 'package:get_x_master/get_x_master.dart';",
             "",
-            "class ${1:My}Controller extends GetxController with StateMixin<${2:Type}>{",
+            "class ${1:My} extends GetxController with StateMixin<${2:Type}>{",
             "final repository;",
             "@override",
             "void onInit() {",
@@ -585,7 +584,7 @@
     "GetXMasterX Snippet": {
         "prefix": "getxmasterx",
         "body": [
-            "GetX<${1:My}Controller>(",
+            "GetX<${1:My}>(",
             "\tinit: ${1:My}Controller(),",
             "\tbuilder: (_) => Text(_.var),",
             "",
@@ -818,7 +817,7 @@
         "prefix": "getxmasterlist",
         "body": [
             "",
-            "GetX<${1:My}Controller>(",
+            "GetX<${1:My}>(",
             "",
             "\t//autoRemove: false,",
             "\t//assignId: false,",
@@ -848,7 +847,7 @@
         "prefix": "getxmasterlistdismissible",
         "body": [
             "",
-            "GetX<${1:My}Controller>(",
+            "GetX<${1:My}>(",
             "",
             "\t//autoRemove: false,",
             "\t//assignId: false,",
@@ -1115,37 +1114,226 @@
         "description": "Get.bottomSheet"
     },
     "Get onInit()": {
-        "prefix": "getxmasteronInit",
+        "prefix": "onInit",
         "body": [
             "@override",
             "void onInit() {",
-            "  ${1:fetchApi}();",
+            "  ${1:// initialize here}",
             "  super.onInit();",
             "}"
         ],
-        "description": "Get onInit()"
+        "description": "Override onInit() — called immediately after the controller is allocated in memory. Use it to initialize variables, call APIs, or set up streams."
     },
     "Get onReady()": {
-        "prefix": "getxmasteronReady",
+        "prefix": "onReady",
         "body": [
             "@override",
             "void onReady() {",
-            "  ${1:fetchApi}();",
+            "  ${1:// called after widget is rendered on screen}",
             "  super.onReady();",
             "}"
         ],
-        "description": "Get onReady()"
+        "description": "Override onReady() — called one frame after onInit(). Ideal for navigation calls, dialogs, or SnackBars that require the widget tree to be built."
     },
     "Get onClose()": {
-        "prefix": "getxmasteronClose",
+        "prefix": "onClose",
         "body": [
+            "@override",
+            "void onClose() {",
+            "  ${1:// dispose streams, controllers, timers here}",
+            "  super.onClose();",
+            "}"
+        ],
+        "description": "Override onClose() — called before the controller is deleted from memory. Use it to cancel subscriptions, close streams, or dispose animation controllers."
+    },
+    "Get onDelete()": {
+        "prefix": "onDelete",
+        "body": [
+            "@override",
+            "void onDelete() {",
+            "  ${1:// called when the controller is permanently removed}",
+            "  super.onDelete();",
+            "}"
+        ],
+        "description": "Override onDelete() — called when the controller is permanently removed from GetX dependency injection. Use for final cleanup."
+    },
+    "Get All Lifecycle Methods": {
+        "prefix": "getxmasterlifecycle",
+        "body": [
+            "@override",
+            "void onInit() {",
+            "  ${1:// called immediately after controller is created}",
+            "  super.onInit();",
+            "}",
+            "",
+            "@override",
+            "void onReady() {",
+            "  ${2:// called one frame after onInit — widget tree is ready}",
+            "  super.onReady();",
+            "}",
+            "",
+            "@override",
+            "void onClose() {",
+            "  ${3:// dispose streams, timers, animation controllers}",
+            "  super.onClose();",
+            "}"
+        ],
+        "description": "Insert all three GetXController lifecycle methods: onInit, onReady, and onClose."
+    },
+    "GetXMasterController With Lifecycle Snippet": {
+        "prefix": "getxmastercontrollerlifecycle",
+        "body": [
+            "import 'package:get_x_master/get_x_master.dart';",
+            "",
+            "class ${1:My}Controller extends GetXController {",
+            "",
+            "  @override",
+            "  void onInit() {",
+            "    ${2:// initialize variables, call APIs, set up listeners}",
+            "    super.onInit();",
+            "  }",
+            "",
+            "  @override",
+            "  void onReady() {",
+            "    ${3:// navigate, show dialogs — widget tree is ready}",
+            "    super.onReady();",
+            "  }",
+            "",
             "  @override",
             "  void onClose() {",
-            "    ${1:user}.close();",
+            "    ${4:// cancel subscriptions, close streams}",
             "    super.onClose();",
-            "  }"
+            "  }",
+            "}"
         ],
-        "description": "Get onClose()"
+        "description": "Generate GetXController class with all lifecycle methods: onInit, onReady, onClose."
+    },
+    "GetXMasterController Full Snippet": {
+        "prefix": "getxmastercontrollerfull",
+        "body": [
+            "import 'package:get_x_master/get_x_master.dart';",
+            "",
+            "class ${1:My}Controller extends GetXController {",
+            "",
+            "  // --- Reactive State ---",
+            "  final _${2:count} = ${3:0}.obs;",
+            "  get $2 => _$2.value;",
+            "  set $2(value) => _$2.value = value;",
+            "",
+            "  // --- Lifecycle ---",
+            "  @override",
+            "  void onInit() {",
+            "    ${4:// fetch data or initialize}",
+            "    super.onInit();",
+            "  }",
+            "",
+            "  @override",
+            "  void onReady() {",
+            "    ${5:// navigate or show dialogs}",
+            "    super.onReady();",
+            "  }",
+            "",
+            "  @override",
+            "  void onClose() {",
+            "    ${6:// dispose resources}",
+            "    super.onClose();",
+            "  }",
+            "}"
+        ],
+        "description": "Generate a full GetXController with reactive state, getter/setter pattern, and all three lifecycle methods."
+    },
+    "GetXMasterWorkerEver Snippet": {
+        "prefix": "getxmasterworkerever",
+        "body": [
+            "ever(${1:rxVariable}, (${2:value}) {",
+            "  ${3:// called every time \\$1 changes}",
+            "});"
+        ],
+        "description": "Worker: ever() — fires a callback every time the observable changes."
+    },
+    "GetXMasterWorkerOnce Snippet": {
+        "prefix": "getxmasterworkeronce",
+        "body": [
+            "once(${1:rxVariable}, (${2:value}) {",
+            "  ${3:// called only the first time \\$1 changes}",
+            "});"
+        ],
+        "description": "Worker: once() — fires a callback only the first time the observable changes, then disposes itself."
+    },
+    "GetXMasterWorkerDebounce Snippet": {
+        "prefix": "getxmasterworkerdebounce",
+        "body": [
+            "debounce(",
+            "  ${1:rxVariable},",
+            "  (${2:value}) {",
+            "    ${3:// called after \\$1 stops changing for the duration}",
+            "  },",
+            "  time: Duration(milliseconds: ${4:500}),",
+            ");"
+        ],
+        "description": "Worker: debounce() — fires a callback only after the observable stops changing for a given duration. Great for search fields."
+    },
+    "GetXMasterWorkerInterval Snippet": {
+        "prefix": "getxmasterworkerinterval",
+        "body": [
+            "interval(",
+            "  ${1:rxVariable},",
+            "  (${2:value}) {",
+            "    ${3:// called at most once per interval while \\$1 is changing}",
+            "  },",
+            "  time: Duration(milliseconds: ${4:1000}),",
+            ");"
+        ],
+        "description": "Worker: interval() — fires a callback at most once per interval while the observable keeps changing."
+    },
+    "GetXMasterWorkerAll Snippet": {
+        "prefix": "getxmasterworkers",
+        "body": [
+            "// Fires every time",
+            "ever(${1:rxVariable}, (value) => ${2:print(value)});",
+            "",
+            "// Fires only once",
+            "once($1, (value) => ${3:print(value)});",
+            "",
+            "// Fires after changes stop for 500ms",
+            "debounce($1, (value) => ${4:print(value)}, time: Duration(milliseconds: 500));",
+            "",
+            "// Fires at most once per second while changing",
+            "interval($1, (value) => ${5:print(value)}, time: Duration(seconds: 1));"
+        ],
+        "description": "Insert all four GetX workers: ever, once, debounce, interval."
+    },
+    "GetXMasterObx Snippet": {
+        "prefix": "getxmasterobx",
+        "body": [
+            "Obx(() => ${1:Text(controller.count.toString())}),"
+        ],
+        "description": "Obx widget — automatically rebuilds when any observable inside it changes."
+    },
+    "GetXMasterGetBuilder Snippet": {
+        "prefix": "getxmastergetbuilder",
+        "body": [
+            "GetBuilder<${1:My}Controller>(",
+            "  builder: (controller) {",
+            "    return ${2:Text(controller.value.toString())};",
+            "  },",
+            "),"
+        ],
+        "description": "GetBuilder widget — rebuilds only when update() is called manually on the controller."
+    },
+    "GetXMasterControllerUpdate Snippet": {
+        "prefix": "getxmasterupdate",
+        "body": [
+            "update();"
+        ],
+        "description": "Call update() inside a GetXController to notify all GetBuilder widgets to rebuild."
+    },
+    "GetXMasterControllerUpdateIds Snippet": {
+        "prefix": "getxmasterupdateids",
+        "body": [
+            "update([${1:'myId'}]);"
+        ],
+        "description": "Call update([id]) to rebuild only the GetBuilder widgets with matching IDs."
     },
     "Get lazyPut": {
         "prefix": "getxmasterlazyPut",
