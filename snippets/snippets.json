@@ -304,9 +304,9 @@
         "body": [
             "import 'package:get_x_master/get_x_master.dart';",
             "",
-            "class ${1:My} extends GetXController {",
+            "class ${1:MyController} extends GetXController {",
             "",
-            "final ${2:My}Repository repository;",
+            "final ${2:MyController}Repository repository;",
             "",
             "\tfinal _${3:obj} = ''.obs;",
             "\tset $3(value) => this._$3.value = value;",
@@ -320,7 +320,7 @@
         "body": [
             "import 'package:get_x_master/get_x_master.dart';",
             "",
-            "class ${1:My} extends GetXController {",
+            "class ${1:MyController} extends GetXController {",
             "",
             "}"
         ],
@@ -331,7 +331,7 @@
         "body": [
             "import 'package:get_x_master/get_x_master.dart';",
             "",
-            "class ${1:My} extends GetxController with SingleGetTickerProviderMixin {",
+            "class ${1:MyController} extends GetxController with SingleGetTickerProviderMixin {",
             "",
             "}"
         ],
@@ -372,7 +372,7 @@
         "body": [
             "import 'package:get_x_master/get_x_master.dart';",
             "",
-            "class ${1:My} extends GetxController with StateMixin<${2:Type}>{",
+            "class ${1:MyController} extends GetxController with StateMixin<${2:Type}>{",
             "final repository;",
             "@override",
             "void onInit() {",
@@ -397,8 +397,8 @@
         "body": [
             "import 'package:get_x_master/get_x_master.dart';",
             "",
-            "class ${1:My}Service extends GetxService {",
-            "\tFuture<${1:My}Service> init() async {",
+            "class ${1:MyService}Service extends GetxService {",
+            "\tFuture<${1:MyService}Service> init() async {",
                 "\t\treturn this;",
             "\t}",
             "",
@@ -411,7 +411,7 @@
         "body": [
             "import 'package:get_x_master/get_x_master.dart';",
             "",
-            "class ${1:MyPage}Binding implements Bindings {",
+            "class ${1:MyPageBinding} implements Bindings {",
             "@override",
             "void dependencies() {",
             "\tGet.lazyPut<$1Controller>(() => $1Controller(",
@@ -529,7 +529,7 @@
             "\t\tappBar: AppBar(title: Text('$1Page')),",
             "",
             "\t\tbody: SafeArea(",
-            "\t\t\tchild: Text('${1:My}Controller'))",
+            "\t\t\tchild: Text('${1:MyController}'))",
             "\t\t);",
             "\t}",
             "}"
@@ -585,7 +585,7 @@
         "prefix": "getxmasterx",
         "body": [
             "GetX<${1:My}>(",
-            "\tinit: ${1:My}Controller(),",
+            "\tinit: ${1:MyController}(),",
             "\tbuilder: (_) => Text(_.var),",
             "",
             ")"
@@ -1185,7 +1185,7 @@
         "body": [
             "import 'package:get_x_master/get_x_master.dart';",
             "",
-            "class ${1:My}Controller extends GetXController {",
+            "class ${1:MyController}Controller extends GetXController {",
             "",
             "  @override",
             "  void onInit() {",
@@ -1213,7 +1213,7 @@
         "body": [
             "import 'package:get_x_master/get_x_master.dart';",
             "",
-            "class ${1:My}Controller extends GetXController {",
+            "class ${1:MyController} extends GetXController {",
             "",
             "  // --- Reactive State ---",
             "  final _${2:count} = ${3:0}.obs;",
@@ -1326,8 +1326,8 @@
     "GetXMasterGetBuilderObs Snippet": {
         "prefix": "getxmastergetbuilderobs",
         "body": [
-            "GetBuilderObs<${1:My}Controller>(",
-            "  init: ${1:My}Controller(),",
+            "GetBuilderObs<${1:MyController}>(",
+            "  init: ${1:MyController}(),",
             "  observables: [${2:controller.count}],",
             "  filter: (controller) => ${3:controller.count.value ~/ 10},",
             "  builder: (controller) {",
@@ -1365,7 +1365,7 @@
     "GetXMasterGetBuilder Snippet": {
         "prefix": "getxmastergetbuilder",
         "body": [
-            "GetBuilder<${1:My}Controller>(",
+            "GetBuilder<${1:MyController}>(",
             "  builder: (controller) {",
             "    return ${2:Text(controller.value.toString())};",
             "  },",
