@@ -2,18 +2,21 @@
 
 All notable changes to the "get-x-master-snippets" extension will be documented in this file.
 
+## [1.0.6] - 2026-06-12
 
 
+### Added
+- `Wrap with GetAsyncBuilder.stream` — right-click wrap command
+- `Wrap with GetAsyncBuilder.future` — right-click wrap command
 
-## [1.0.5] - 2026-06-06
+
+## [1.0.5] - 2026-06-08
 
 ### Added
 - `getxmasterasyncstream` — `GetAsyncBuilder.stream` with `isEmpty`, `onEmpty`, `onError` (retry), `onSuccess`
 - `getxmasterasyncfuture` — `GetAsyncBuilder.future` simplest form with `onSuccess`
 
-### Added
-- `Wrap with GetAsyncBuilder.stream` — right-click wrap command
-- `Wrap with GetAsyncBuilder.future` — right-click wrap command
+
 
 ### Fixed
 - `GetBuilderObs` snippet key name was missing after previous JSON repair — restored correctly
