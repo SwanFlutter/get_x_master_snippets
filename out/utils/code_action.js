@@ -11,10 +11,12 @@ class CodeActionProvider {
         const codeActions = [];
         codeActions.push({ command: "get.wrapInGetx",          title: "Wrap with GetX" });
         codeActions.push({ command: "get.wrapInGetBuilder",    title: "Wrap with GetBuilder" });
+        codeActions.push({ command: "get.wrapInGetBuilderObs", title: "Wrap with GetBuilderObs" });
         codeActions.push({ command: "get.wrapInObx",           title: "Wrap with Obx" });
         codeActions.push({ command: "get.wrapInObxValue",      title: "Wrap with ObxValue" });
         codeActions.push({ command: "get.wrapInMultiObx",      title: "Wrap with MultiObx" });
-        codeActions.push({ command: "get.wrapInGetBuilderObs", title: "Wrap with GetBuilderObs" });
+        codeActions.push({ command: "get.wrapInAsyncStream",   title: "Wrap with GetAsyncBuilder.stream" });
+        codeActions.push({ command: "get.wrapInAsyncFuture",   title: "Wrap with GetAsyncBuilder.future" });
         return codeActions;
     }
 }

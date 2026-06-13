@@ -2,7 +2,7 @@
 	"name": "get-x-master-snippets",
 	"displayName": "GetX Master Snippets",
 	"description": "An extension to accelerate the process of developing applications with flutter, aimed at everyone using the GetX Master package.",
-	"version": "1.0.4",
+	"version": "1.0.6",
 	"publisher": "sajjadkarimi",
 	"engines": {
 		"vscode": "^1.2.0"
@@ -73,6 +73,16 @@
 				"command": "get.wrapInGetBuilderObs",
 				"title": "Wrap with GetBuilderObs",
 				"category": "Dart"
+			},
+			{
+				"command": "get.wrapInAsyncStream",
+				"title": "Wrap with GetAsyncBuilder.stream",
+				"category": "Dart"
+			},
+			{
+				"command": "get.wrapInAsyncFuture",
+				"title": "Wrap with GetAsyncBuilder.future",
+				"category": "Dart"
 			}
 		],
 		"keybindings": [
@@ -121,6 +131,14 @@
 			},
 			{
 				"command": "get.wrapInGetBuilderObs",
+				"when": "editorLangId == dart"
+			},
+			{
+				"command": "get.wrapInAsyncStream",
+				"when": "editorLangId == dart"
+			},
+			{
+				"command": "get.wrapInAsyncFuture",
 				"when": "editorLangId == dart"
 			}
 		]

@@ -1323,11 +1323,57 @@
         ],
         "description": "ObxValue — passes a reactive variable directly to the builder. Useful for local state without a controller."
     },
+    "GetXMasterGetAsyncBuilderStream Snippet": {
+        "prefix": "getxmasterasyncstream",
+        "body": [
+            "GetAsyncBuilder<${1:List<Message>}>.stream(",
+            "  stream: () => ${2:repository.dataStream()},",
+            "  isEmpty: (${3:data}) => $3.isEmpty,",
+            "  onEmpty: (context) => const Center(",
+            "    child: Text('${4:No data yet}'),",
+            "  ),",
+            "  onError: (context, error, retry) => Center(",
+            "    child: Column(",
+            "      mainAxisSize: MainAxisSize.min,",
+            "      children: [",
+            "        const Icon(Icons.wifi_off, size: 48, color: Colors.grey),",
+            "        const SizedBox(height: 8),",
+            "        Text('${5:Connection lost}: \\$error'),",
+            "        TextButton(",
+            "          onPressed: retry,",
+            "          child: const Text('${6:Retry}'),",
+            "        ),",
+            "      ],",
+            "    ),",
+            "  ),",
+            "  onSuccess: (context, ${7:data}) => ${8:ListView.builder(",
+            "    itemCount: $7.length,",
+            "    itemBuilder: (_, i) => ListTile(title: Text($7[i].toString())),",
+            "  )},",
+            "),"
+        ],
+        "description": "GetAsyncBuilder.stream — subscribes to a stream and rebuilds on data, empty, or error. Supports retry callback on error."
+    },
+    "GetXMasterGetAsyncBuilderFuture Snippet": {
+        "prefix": "getxmasterasyncfuture",
+        "body": [
+            "GetAsyncBuilder<${1:List<Post>}>.future(",
+            "  future: () => ${2:service.fetchData()},",
+            "  onSuccess: (context, ${3:data}) {",
+            "    return ${4:ListView.builder(",
+            "      itemCount: $3.length,",
+            "      itemBuilder: (_, i) => ListTile(title: Text($3[i].toString())),",
+            "    )};",
+            "  },",
+            "),"
+        ],
+        "description": "GetAsyncBuilder.future — simplest form. Awaits a future and calls onSuccess with the result."
+    },
     "GetXMasterGetBuilderObs Snippet": {
         "prefix": "getxmastergetbuilderobs",
         "body": [
-            "GetBuilderObs<${1:MyController}>(",
-            "  init: ${1:MyController}(),",
+            "GetBuilderObs<${1:My}Controller>(",
+            "  init: ${1:My}Controller(),",
             "  observables: [${2:controller.count}],",
             "  filter: (controller) => ${3:controller.count.value ~/ 10},",
             "  builder: (controller) {",

@@ -13,9 +13,9 @@ code --install-extension "g:\Android\Pakege\vscode\get_x_master_snippets\get-x-m
 اگر Kiro رو به عنوان default editor داری:
 
 ```bash
-kiro --install-extension "g:\Android\Pakege\vscode\get_x_master_snippets\get-x-master-snippets-1.0.4.vsix"
+kiro --install-extension "g:\Android\Pakege\vscode\get_x_master_snippets\get-x-master-snippets-1.0.5.vsix"
 ```
-
+code --install-extension "G:\Android\Pakege\vscode\get_x_master_snippets\get-x-master-snippets-1.0.4.vsix"
 ---
 
 ### ۲. از طریق UI
